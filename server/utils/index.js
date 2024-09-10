@@ -1,3 +1,4 @@
+// utils/index.js
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
@@ -5,7 +6,6 @@ import mongoose from "mongoose";
 export const connectToDatabase = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
-
     console.log("Database connection successful");
   } catch (error) {
     console.error("Database connection error: " + error);
@@ -13,7 +13,7 @@ export const connectToDatabase = async () => {
 };
 
 // Generates a JWT token and sets it in an HTTP-only cookie
-export const generateJWTToken = (response, userId) => {
+export const createJWT = (response, userId) => {
   const token = jwt.sign({ id: userId }, process.env.JWT_SECRET_KEY, {
     expiresIn: "1d",
   });

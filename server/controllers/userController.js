@@ -28,7 +28,7 @@ export const registerUser = async (req, res) => {
 
     if (newUser) {
       if (isAdmin) createJWT(res, newUser._id);
-      
+
       newUser.password = undefined;
 
       res.status(201).json(newUser);
@@ -42,7 +42,7 @@ export const registerUser = async (req, res) => {
 };
 
 // Log in a user
-export const loginUser = async (req, res) => {
+export const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -77,7 +77,7 @@ export const loginUser = async (req, res) => {
 };
 
 // Log out the user
-export const logoutUser = async (req, res) => {
+export const userLogout = async (req, res) => {
   try {
     res.cookie("token", "", {
       httpOnly: true,
@@ -92,7 +92,7 @@ export const logoutUser = async (req, res) => {
 };
 
 // Retrieve list of team members
-export const getTeamList = async (req, res) => {
+export const fetchTeamMembers = async (req, res) => {
   try {
     const team = await User.find().select("name title role email isActive");
 
@@ -104,7 +104,7 @@ export const getTeamList = async (req, res) => {
 };
 
 // Fetch notifications
-export const getNotificationsList = async (req, res) => {
+export const fetchUserNotifications = async (req, res) => {
   try {
     const { userId } = req.user;
 
@@ -113,7 +113,7 @@ export const getNotificationsList = async (req, res) => {
       isRead: { $nin: [userId] },
     }).populate("task", "title");
 
-    res.status(201).json(notifications);
+    res.status(200).json(notifications);
   } catch (error) {
     console.error(error);
     return res.status(400).json({ status: false, message: error.message });
@@ -121,7 +121,7 @@ export const getNotificationsList = async (req, res) => {
 };
 
 // Update user profile
-export const updateUserProfile = async (req, res) => {
+export const modifyUserProfile = async (req, res) => {
   try {
     const { userId, isAdmin } = req.user;
     const { _id } = req.body;
@@ -139,7 +139,7 @@ export const updateUserProfile = async (req, res) => {
 
       user.password = undefined;
 
-      res.status(201).json({
+      res.status(200).json({
         status: true,
         message: "Profile updated successfully.",
         user: updatedUser,
@@ -154,7 +154,7 @@ export const updateUserProfile = async (req, res) => {
 };
 
 // Mark notifications as read
-export const markNotificationRead = async (req, res) => {
+export const updateNotificationStatus = async (req, res) => {
   try {
     const { userId } = req.user;
     const { isReadType, id } = req.query;
@@ -171,7 +171,7 @@ export const markNotificationRead = async (req, res) => {
       );
     }
 
-    res.status(201).json({ status: true, message: "Marked as read" });
+    res.status(200).json({ status: true, message: "Marked as read" });
   } catch (error) {
     console.error(error);
     return res.status(400).json({ status: false, message: error.message });
@@ -192,7 +192,7 @@ export const changeUserPassword = async (req, res) => {
 
       user.password = undefined;
 
-      res.status(201).json({
+      res.status(200).json({
         status: true,
         message: "Password changed successfully.",
       });
@@ -206,7 +206,7 @@ export const changeUserPassword = async (req, res) => {
 };
 
 // Activate or deactivate user profile
-export const activateUserProfile = async (req, res) => {
+export const activateUserAccount = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -217,7 +217,7 @@ export const activateUserProfile = async (req, res) => {
 
       await user.save();
 
-      res.status(201).json({
+      res.status(200).json({
         status: true,
         message: `User account has been ${user.isActive ? "activated" : "disabled"}`,
       });
@@ -231,7 +231,7 @@ export const activateUserProfile = async (req, res) => {
 };
 
 // Delete a user profile
-export const deleteUserProfile = async (req, res) => {
+export const removeUserAccount = async (req, res) => {
   try {
     const { id } = req.params;
 

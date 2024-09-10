@@ -2,7 +2,7 @@ import Notification from "../models/notification.js";
 import Task from "../models/task.js";
 import User from "../models/user.js";
 
-export const createTask = async (req, res) => {
+export const createNewTask = async (req, res) => {
   try {
     const { userId } = req.user;
     const { title, team, stage, date, priority, assets } = req.body;
@@ -43,7 +43,7 @@ export const createTask = async (req, res) => {
   }
 };
 
-export const duplicateTask = async (req, res) => {
+export const duplicate = async (req, res) => {
   try {
     const { id } = req.params;
     const task = await Task.findById(id);
@@ -104,7 +104,7 @@ export const postTaskActivity = async (req, res) => {
   }
 };
 
-export const dashboardStatistics = async (req, res) => {
+export const getDashboardStats = async (req, res) => {
   try {
     const { userId, isAdmin } = req.user;
 
@@ -152,7 +152,7 @@ export const dashboardStatistics = async (req, res) => {
   }
 };
 
-export const getTasks = async (req, res) => {
+export const fetchTaskDetails = async (req, res) => {
   try {
     const { stage, isTrashed } = req.query;
 
@@ -194,7 +194,7 @@ export const getTask = async (req, res) => {
   }
 };
 
-export const createSubTask = async (req, res) => {
+export const addSubTask = async (req, res) => {
   try {
     const { title, tag, date } = req.body;
     const { id } = req.params;
@@ -256,7 +256,7 @@ export const trashTask = async (req, res) => {
   }
 };
 
-export const deleteRestoreTask = async (req, res) => {
+export const manageTaskDeletion = async (req, res) => {
   try {
     const { id } = req.params;
     const { actionType } = req.query;

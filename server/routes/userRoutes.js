@@ -1,11 +1,11 @@
 import express from "express";
-import { checkAdmin, ensureAuthenticated } from "../middlewares/authMiddleware.js";
+import { checkAdmin, authenticateUser } from "../middlewares/authMiddleware.js";
 import {
-  createUserAccount,
+  registerUser,
   userLogin,
   userLogout,
   modifyUserProfile,
-  changePassword,
+  changeUserPassword,
   removeUserAccount,
   fetchUserNotifications,
   fetchTeamMembers,
@@ -16,7 +16,7 @@ import {
 const userRouter = express.Router();
 
 // User Authentication Routes
-userRouter.post("/signup", createUserAccount);
+userRouter.post("/signup", registerUser);
 userRouter.post("/signin", userLogin);
 userRouter.post("/signout", userLogout);
 
