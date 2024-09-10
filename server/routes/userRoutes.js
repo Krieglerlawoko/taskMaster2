@@ -21,17 +21,17 @@ userRouter.post("/signin", userLogin);
 userRouter.post("/signout", userLogout);
 
 // User Profile and Notifications
-userRouter.get("/team", ensureAuthenticated, checkAdmin, fetchTeamMembers);
-userRouter.get("/notifications", ensureAuthenticated, fetchUserNotifications);
+userRouter.get("/team", authenticateUser, checkAdmin, fetchTeamMembers);
+userRouter.get("/notifications", authenticateUser, fetchUserNotifications);
 
-userRouter.put("/profile", ensureAuthenticated, modifyUserProfile);
-userRouter.put("/notifications/status", ensureAuthenticated, updateNotificationStatus);
-userRouter.put("/password", ensureAuthenticated, changePassword);
+userRouter.put("/profile", authenticateUser, modifyUserProfile);
+userRouter.put("/notifications/status", authenticateUser, updateNotificationStatus);
+userRouter.put("/password", authenticateUser, changeUserPassword);
 
 // Admin Routes for User Management
 userRouter
   .route("/user/:id")
-  .put(ensureAuthenticated, checkAdmin, activateUserAccount)
-  .delete(ensureAuthenticated, checkAdmin, removeUserAccount);
+  .put(authenticateUser, checkAdmin, activateUserAccount)
+  .delete(authenticateUser, checkAdmin, removeUserAccount);
 
 export default userRouter;

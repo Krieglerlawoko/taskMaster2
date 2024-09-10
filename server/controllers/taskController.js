@@ -81,7 +81,7 @@ export const duplicate = async (req, res) => {
   }
 };
 
-export const postTaskActivity = async (req, res) => {
+export const recordTaskActivity = async (req, res) => {
   try {
     const { id } = req.params;
     const { userId } = req.user;
@@ -216,7 +216,7 @@ export const addSubTask = async (req, res) => {
   }
 };
 
-export const updateTask = async (req, res) => {
+export const modifyTask = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, date, team, stage, priority, assets } = req.body;
@@ -239,7 +239,7 @@ export const updateTask = async (req, res) => {
   }
 };
 
-export const trashTask = async (req, res) => {
+export const markTaskAsTrashed = async (req, res) => {
   try {
     const { id } = req.params;
 

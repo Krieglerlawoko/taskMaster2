@@ -1,14 +1,12 @@
-// middlewares/errorHandlers.js
-
 // Middleware to handle routes that are not found
-export const routeNotFound = (req, res, next) => {
+export const handleNotFound = (req, res, next) => {
     const error = new Error(`Route not found: ${req.originalUrl}`);
     res.status(404);
     next(error);
   };
   
   // Middleware to handle errors
-  export const errorHandler = (err, req, res, next) => {
+  export const handleErrors = (err, req, res, next) => {
     let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
     let message = err.message;
   

@@ -28,7 +28,7 @@ taskRouter.post("/activity/:id", authenticateUser, recordTaskActivity);
 taskRouter.get("/stats", authenticateUser, getDashboardStats);
 
 // Endpoint to get a list of tasks
-taskRouter.get("/", authenticateUser, listTasks);
+taskRouter.get("/", authenticateUser, getTask);
 
 // Endpoint to get details of a specific task
 taskRouter.get("/:id", authenticateUser, fetchTaskDetails);

@@ -1,4 +1,4 @@
-// Example of a simple helper function for generating a random string
+// helper function for generating a random string
 export const generateRandomString = (length) => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -7,15 +7,21 @@ export const generateRandomString = (length) => {
       result += characters[randomIndex];
     }
     return result;
-  };
-  
-  // Example of a helper function for formatting dates
-  export const formatDate = (date) => {
+};
+
+// helper function for formatting dates
+export const formatDate = (date) => {
     return new Date(date).toLocaleDateString();
-  };
-  
-  // Example of a helper function for validating email addresses
-  export const isValidEmail = (email) => {
+};
+
+// helper function for validating email addresses
+export const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
-  };  
+};
+
+// helper function for connecting to a database
+export const connectDatabase = async () => {
+    // Implementation for connecting to the database
+    console.log("Database connected");
+};
